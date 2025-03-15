@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.background {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffdde1);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+}
+
+h1 {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    animation: fadeIn 1.5s forwards;
+}
+
+.glow {
+    text-shadow: 0 0 20px #ff6b6b, 0 0 30px #ff4f4f;
+}
+
+p.animated-text {
+    font-size: 2rem;
+    animation: fadeIn 2s forwards;
+}
+
+button {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    color: #fff;
+    background: linear-gradient(45deg, #ff6b6b, #ff4f4f);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+button:hover {
+    background: linear-gradient(45deg, #ff4f4f, #ff6b6b);
+}
+
+button:active {
+    transform: translateY(2px);
+}
+
+.message-box {
+    font-size: 1.8rem;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 30px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    width: 70%;
+}
+
+.message-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}

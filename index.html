@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>С Днем Рождения!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="background"></div>
+    
+    <div class="container">
+        <h1 class="glow">С Днем Рождения!</h1>
+        <p class="animated-text">Счастья, здоровья и исполнения всех желаний!</p>
+        <button class="btn pulse" onclick="toggleMusic()">Включить песню</button>
+        <audio id="birthday-song" src="song.mp3"></audio>
+        
+        <!-- Большое поздравление -->
+        <div class="message-box" id="hidden-message">
+            <p class="message">
+                🎉 С ДНЁМ РОЖДЕНИЯ! 🎉<br><br>
+                Пусть этот день будет наполнен радостью и улыбками! Желаю тебе здоровья, счастья и невероятных успехов во всём!  
+                <br><br>
+                Оставайся такой же яркой, доброй и неповторимой! ❤️  
+                <br><br>
+                Пусть каждый новый день приносит тебе счастье и вдохновение!  
+                <br><br>
+                🎈🎂 С ПРАЗДНИКОМ! 🎂🎈
+            </p>
+        </div>
+    </div>
+
+    <!-- Канвас для частиц -->
+    <canvas id="particles"></canvas>
+
+    <script>
+        function toggleMusic() {
+            const audio = document.getElementById('birthday-song');
+            const message = document.getElementById('hidden-message');
+            
+            if (audio.paused) {
+                audio.play();
+                message.classList.add('show');
+                createParticles(); // Вызов эффекта салюта
+            } else {
+                audio.pause();
+                message.classList.remove('show');
+            }
+        }
+
+        // Эффект частиц (салют)
+        function createParticles() {
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#ff6b6b', '#ff4f4f', '#ffb6c1', '#ffa07a', '#ffd700'];
+
+            class Particle {
+                constructor(x, y, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.color = color;
+                    this.size = Math.random() * 5 + 2;
+                    this.speedX = (Math.random() - 0.5) * 6;
+                    this.speedY = (Math.random() - 0.5) * 6;
+                    this.opacity = 1;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.opacity -= 0.02;
+                }
+
+                draw() {
+                    ctx.globalAlpha = this.opacity;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            }
+
+            function addParticles() {
+                for (let i = 0; i < 50; i++) {
+                    const x = canvas.width / 2;
+                    const y = canvas.height / 2;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    particles.push(new Particle(x, y, color));
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+
+                    if (particles[i].opacity <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            addParticles();
+            animateParticles();
+        }
+    </script>
+</body>
+</html>
