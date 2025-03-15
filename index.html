@@ -15,11 +15,11 @@
         <button class="btn pulse" onclick="toggleMusic()">Включить песню</button>
         <audio id="birthday-song" src="song.mp3"></audio>
         
-        <!-- Большое поздравление -->
         <div class="message-box" id="hidden-message">
             <p class="message">
                 🎉 С ДНЁМ РОЖДЕНИЯ! 🎉<br><br>
-                Пусть этот день будет наполнен радостью и улыбками! Желаю тебе здоровья, счастья и невероятных успехов во всём!  
+                Пусть этот день будет наполнен радостью и улыбками!  
+                Желаю тебе здоровья, счастья и успехов во всём!  
                 <br><br>
                 Оставайся такой же яркой, доброй и неповторимой! ❤️  
                 <br><br>
@@ -30,7 +30,6 @@
         </div>
     </div>
 
-    <!-- Канвас для частиц -->
     <canvas id="particles"></canvas>
 
     <script>
@@ -41,14 +40,13 @@
             if (audio.paused) {
                 audio.play();
                 message.classList.add('show');
-                createParticles(); // Вызов эффекта салюта
+                createParticles();
             } else {
                 audio.pause();
                 message.classList.remove('show');
             }
         }
 
-        // Эффект частиц (салют)
         function createParticles() {
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
