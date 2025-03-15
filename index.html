@@ -1,116 +1,57 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>С Днем Рождения!</title>
-    <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-    <div class="background"></div>
-    
-    <div class="container">
-        <h1 class="glow">С Днем Рождения!</h1>
-        <p class="animated-text">Счастья, здоровья и исполнения всех желаний!</p>
-        <button class="btn pulse" onclick="toggleMusic()">Включить песню</button>
-        <audio id="birthday-song" src="song.mp3"></audio>
-        
-        <div class="message-box" id="hidden-message">
-            <p class="message">
-                🎉 С ДНЁМ РОЖДЕНИЯ! 🎉<br><br>
-                Пусть этот день будет наполнен радостью и улыбками!  
-                Желаю тебе здоровья, счастья и успехов во всём!  
-                <br><br>
-                Оставайся такой же яркой, доброй и неповторимой! ❤️  
-                <br><br>
-                Пусть каждый новый день приносит тебе счастье и вдохновение!  
-                <br><br>
-                🎈🎂 С ПРАЗДНИКОМ! 🎂🎈
-            </p>
-        </div>
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+
+export default function BirthdayPage() {
+  const [showMessage, setShowMessage] = useState(false);
+  const audioRef = useRef(null);
+
+  const toggleMessage = () => {
+    setShowMessage(!showMessage);
+    if (audioRef.current) {
+      if (audioRef.current.paused) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-400 via-red-400 to-yellow-300 text-white text-center p-4">
+      <motion.h1
+        className="text-5xl sm:text-6xl font-bold drop-shadow-lg"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        С Днём Рождения, дорогая подруга! 🎉
+      </motion.h1>
+      <motion.p
+        className="text-lg sm:text-xl mt-4 max-w-xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 1 }}
+      >
+        Пусть этот день будет наполнен радостью, улыбками и самыми яркими моментами! Желаю счастья, любви и исполнения всех мечт! 💖
+      </motion.p>
+      <Button
+        className="mt-6 px-6 py-3 text-lg font-semibold bg-white text-red-500 rounded-2xl shadow-lg hover:bg-red-100 transition-all"
+        onClick={toggleMessage}
+      >
+        Включить праздничную песню 🎶
+      </Button>
+      {showMessage && (
+        <motion.div
+          className="mt-6 p-4 bg-white/20 backdrop-blur-md rounded-xl shadow-lg max-w-lg text-lg"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          Наслаждайся этим прекрасным днём под музыку! Пусть настроение будет на высоте! 🎶✨
+        </motion.div>
+      )}
+      <audio ref={audioRef} src="song.mp3" preload="auto"></audio>
     </div>
-
-    <canvas id="particles"></canvas>
-
-    <script>
-        function toggleMusic() {
-            const audio = document.getElementById('birthday-song');
-            const message = document.getElementById('hidden-message');
-            
-            if (audio.paused) {
-                audio.play();
-                message.classList.add('show');
-                createParticles();
-            } else {
-                audio.pause();
-                message.classList.remove('show');
-            }
-        }
-
-        function createParticles() {
-            const canvas = document.getElementById('particles');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const particles = [];
-            const colors = ['#ff6b6b', '#ff4f4f', '#ffb6c1', '#ffa07a', '#ffd700'];
-
-            class Particle {
-                constructor(x, y, color) {
-                    this.x = x;
-                    this.y = y;
-                    this.color = color;
-                    this.size = Math.random() * 5 + 2;
-                    this.speedX = (Math.random() - 0.5) * 6;
-                    this.speedY = (Math.random() - 0.5) * 6;
-                    this.opacity = 1;
-                }
-
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    this.opacity -= 0.02;
-                }
-
-                draw() {
-                    ctx.globalAlpha = this.opacity;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.fill();
-                    ctx.closePath();
-                }
-            }
-
-            function addParticles() {
-                for (let i = 0; i < 50; i++) {
-                    const x = canvas.width / 2;
-                    const y = canvas.height / 2;
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    particles.push(new Particle(x, y, color));
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-
-                    if (particles[i].opacity <= 0) {
-                        particles.splice(i, 1);
-                        i--;
-                    }
-                }
-
-                requestAnimationFrame(animateParticles);
-            }
-
-            addParticles();
-            animateParticles();
-        }
-    </script>
-</body>
-</html>
+  );
+}
