@@ -98,7 +98,49 @@ canvas {
     pointer-events: none;
 }
 
-/* 📱 Адаптация для iPhone 13 */
+/* 🎯 Адаптация для iPhone 13 Mini */
+@media (max-width: 375px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    p.animated-text {
+        font-size: 1.3rem;
+    }
+
+    button {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+
+    .message-box {
+        font-size: 1.2rem;
+        width: 90%;
+    }
+}
+
+/* 🎯 Адаптация для iPhone 13 / 13 Pro */
+@media (max-width: 390px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    p.animated-text {
+        font-size: 1.4rem;
+    }
+
+    button {
+        padding: 12px 30px;
+        font-size: 1.2rem;
+    }
+
+    .message-box {
+        font-size: 1.3rem;
+        width: 88%;
+    }
+}
+
+/* 🎯 Адаптация для iPhone 13 Pro Max */
 @media (max-width: 430px) {
     h1 {
         font-size: 2.5rem;
@@ -109,12 +151,12 @@ canvas {
     }
 
     button {
-        padding: 12px 30px;
-        font-size: 1.2rem;
+        padding: 14px 35px;
+        font-size: 1.3rem;
     }
 
     .message-box {
-        font-size: 1.3rem;
-        width: 90%;
+        font-size: 1.4rem;
+        width: 85%;
     }
 }
