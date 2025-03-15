@@ -8,38 +8,55 @@
 
 body, html {
     height: 100%;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.background {
     background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffdde1);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .container {
-    width: 90%;
-    max-width: 400px;
-    background: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: #fff;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 h1 {
-    font-size: 2rem;
-    margin-bottom: 15px;
+    font-size: clamp(3rem, 5vw, 5rem);
+    margin-bottom: 20px;
+    animation: fadeIn 1.5s forwards;
 }
 
-p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+.glow {
+    text-shadow: 0 0 20px #ff6b6b, 0 0 30px #ff4f4f;
+}
+
+p.animated-text {
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    animation: fadeIn 2s forwards;
 }
 
 button {
-    padding: 12px 30px;
-    font-size: 1.2rem;
+    padding: 15px 40px;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
     color: #fff;
     background: linear-gradient(45deg, #ff6b6b, #ff4f4f);
     border: none;
@@ -47,6 +64,7 @@ button {
     cursor: pointer;
     transition: 0.3s ease;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
 }
 
 button:hover {
@@ -57,50 +75,88 @@ button:active {
     transform: translateY(2px);
 }
 
-/* Адаптация для iPhone 13 Mini */
-@media (max-width: 375px) {
+.message-box {
+    font-size: clamp(1rem, 1.5vw, 1.8rem);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 30px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    width: 80%;
+    max-width: 600px;
+}
+
+.message-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* Анимация fadeIn */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 📱 Адаптация для iPhone 13 и других смартфонов */
+@media (max-width: 600px) {
     h1 {
-        font-size: 1.8rem;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
     }
 
-    p {
-        font-size: 1rem;
+    p.animated-text {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    button {
+        padding: 12px 30px;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .message-box {
+        font-size: 1.2rem;
+        padding: 20px;
+        margin-top: 20px;
+        width: 90%;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .background {
+        animation: gradientMove 8s ease infinite;
+    }
+}
+
+/* Адаптация для очень маленьких экранов (например, iPhone SE) */
+@media (max-width: 320px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    p.animated-text {
+        font-size: 1.2rem;
     }
 
     button {
         padding: 10px 25px;
         font-size: 1rem;
     }
-}
 
-/* Адаптация для iPhone 13 / 13 Pro */
-@media (max-width: 390px) {
-    h1 {
-        font-size: 2rem;
-    }
-
-    p {
-        font-size: 1.1rem;
-    }
-
-    button {
-        padding: 12px 28px;
-        font-size: 1.1rem;
-    }
-}
-
-/* Адаптация для iPhone 13 Pro Max */
-@media (max-width: 430px) {
-    h1 {
-        font-size: 2.2rem;
-    }
-
-    p {
-        font-size: 1.2rem;
-    }
-
-    button {
-        padding: 14px 32px;
-        font-size: 1.2rem;
+    .message-box {
+        font-size: 1rem;
+        padding: 15px;
     }
 }
